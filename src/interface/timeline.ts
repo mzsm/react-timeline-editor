@@ -85,36 +85,6 @@ export interface EditData {
    */
   getScaleRender?: (scale: number) => ReactNode;
   /**
-   * @description 点击行回调
-   */
-  onClickRow?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
-   * @description 双击行回调
-   */
-  onDoubleClickRow?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
-   * @description 右键行回调
-   */
-  onContextMenuRow?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
    * @description cursor开始拖拽事件
    */
   onCursorDragStart?: (time: number) => void;

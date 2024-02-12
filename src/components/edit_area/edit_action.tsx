@@ -3,7 +3,7 @@ import { TimelineAction, TimelineRow } from '../../interface/action';
 import { CommonProp } from '../../interface/common_prop';
 import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID } from '../../interface/const';
 import { prefix } from '../../utils/deal_class_prefix';
-import { parserTimeToPixel, parserTimeToTransform, parserTransformToTime } from '../../utils/deal_data';
+import { parserTimeToTransform, parserTransformToTime } from '../../utils/deal_data';
 import { RowDnd } from '../row_rnd/row_rnd';
 import { RowRndApi } from '../row_rnd/row_rnd_interface';
 import { DragLineData } from './drag_lines';
@@ -29,30 +29,13 @@ export const EditAction: FC<EditActionProps> = ({
   startLeft,
   gridSnap,
 
-  maxScaleCount,
-
   dragLineData,
   getActionRender,
   areaRef,
   deltaScrollLeft,
 }) => {
   const rowRnd = useRef<RowRndApi>();
-  const { maxEnd, minStart, end, start, selected, effectId } = action;
-
-  // 获取最大/最小 像素范围
-  const leftLimit = parserTimeToPixel(minStart || 0, {
-    startLeft,
-    scale,
-    scaleWidth,
-  });
-  const rightLimit = Math.min(
-    maxScaleCount * scaleWidth + startLeft, // 根据maxScaleCount限制移动范围
-    parserTimeToPixel(maxEnd || Number.MAX_VALUE, {
-      startLeft,
-      scale,
-      scaleWidth,
-    }),
-  );
+  const { end, start, selected, effectId } = action;
 
   // 初始化动作坐标数据
   const [transform, setTransform] = useState(() => {
@@ -95,10 +78,6 @@ export const EditAction: FC<EditActionProps> = ({
       grid={(gridSnap && gridSize) || DEFAULT_MOVE_GRID}
       adsorptionDistance={gridSnap ? Math.max((gridSize || DEFAULT_MOVE_GRID) / 2, DEFAULT_ADSORPTION_DISTANCE) : DEFAULT_ADSORPTION_DISTANCE}
       adsorptionPositions={dragLineData.assistPositions}
-      bounds={{
-        left: leftLimit,
-        right: rightLimit,
-      }}
       edges={{
         left: false,
         right: false,

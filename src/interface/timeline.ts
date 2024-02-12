@@ -85,18 +85,6 @@ export interface EditData {
    */
   getScaleRender?: (scale: number) => ReactNode;
   /**
-   * @description 开始移动回调
-   */
-  onActionMoveStart?: (params: { action: TimelineAction; row: TimelineRow }) => void;
-  /**
-   * @description 移动回调（return false可阻止移动）
-   */
-  onActionMoving?: (params: { action: TimelineAction; row: TimelineRow; start: number; end: number }) => void | boolean;
-  /**
-   * @description 移动结束回调（return false可阻止onChange触发）
-   */
-  onActionMoveEnd?: (params: { action: TimelineAction; row: TimelineRow; start: number; end: number }) => void;
-  /**
    * @description 点击行回调
    */
   onClickRow?: (

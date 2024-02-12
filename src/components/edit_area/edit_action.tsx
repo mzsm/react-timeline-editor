@@ -3,9 +3,9 @@ import { TimelineAction, TimelineRow } from '../../interface/action';
 import { CommonProp } from '../../interface/common_prop';
 import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID } from '../../interface/const';
 import { prefix } from '../../utils/deal_class_prefix';
-import { getScaleCountByPixel, parserTimeToPixel, parserTimeToTransform, parserTransformToTime } from '../../utils/deal_data';
+import { parserTimeToPixel, parserTimeToTransform, parserTransformToTime } from '../../utils/deal_data';
 import { RowDnd } from '../row_rnd/row_rnd';
-import { RndDragCallback, RndDragEndCallback, RndDragStartCallback, RowRndApi } from '../row_rnd/row_rnd_interface';
+import { RowRndApi } from '../row_rnd/row_rnd_interface';
 import { DragLineData } from './drag_lines';
 import './edit_action.less';
 
@@ -13,14 +13,12 @@ export type EditActionProps = CommonProp & {
   row: TimelineRow;
   action: TimelineAction;
   dragLineData: DragLineData;
-  setEditorData: (params: TimelineRow[]) => void;
   areaRef: React.MutableRefObject<HTMLDivElement>;
   /** 设置scroll left */
   deltaScrollLeft?: (delta: number) => void;
 };
 
 export const EditAction: FC<EditActionProps> = ({
-  editorData,
   row,
   action,
   effects,
@@ -30,23 +28,16 @@ export const EditAction: FC<EditActionProps> = ({
   scaleSplitCount,
   startLeft,
   gridSnap,
-  disableDrag,
 
-  scaleCount,
   maxScaleCount,
-  setScaleCount,
-  onActionMoveStart,
-  onActionMoving,
-  onActionMoveEnd,
 
   dragLineData,
-  setEditorData,
   getActionRender,
   areaRef,
   deltaScrollLeft,
 }) => {
   const rowRnd = useRef<RowRndApi>();
-  const { id, maxEnd, minStart, end, start, selected, movable = true, effectId } = action;
+  const { maxEnd, minStart, end, start, selected, movable = true, effectId } = action;
 
   // 获取最大/最小 像素范围
   const leftLimit = parserTimeToPixel(minStart || 0, {
@@ -81,45 +72,6 @@ export const EditAction: FC<EditActionProps> = ({
   if (selected) classNames.push('action-selected');
   if (effects[effectId]) classNames.push(`action-effect-${effectId}`);
 
-  /** 计算scale count */
-  const handleScaleCount = (left: number, width: number) => {
-    const curScaleCount = getScaleCountByPixel(left + width, {
-      startLeft,
-      scaleCount,
-      scaleWidth,
-    });
-    if (curScaleCount !== scaleCount) setScaleCount(curScaleCount);
-  };
-
-  //#region [rgba(100,120,156,0.08)] 回调
-  const handleDragStart: RndDragStartCallback = () => {
-    onActionMoveStart && onActionMoveStart({ action, row });
-  };
-  const handleDrag: RndDragCallback = ({ left, width }) => {
-    if (onActionMoving) {
-      const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
-      const result = onActionMoving({ action, row, start, end });
-      if (result === false) return false;
-    }
-    setTransform({ left, width });
-    handleScaleCount(left, width);
-  };
-
-  const handleDragEnd: RndDragEndCallback = ({ left, width }) => {
-    // 计算时间
-    const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
-
-    // 设置数据
-    const rowItem = editorData.find((item) => item.id === row.id);
-    const action = rowItem.actions.find((item) => item.id === id);
-    action.start = start;
-    action.end = end;
-    setEditorData(editorData);
-
-    // 执行回调
-    if (onActionMoveEnd) onActionMoveEnd({ action, row, start, end });
-  };
-  //#endregion
 
   const nowAction = {
     ...action,
@@ -152,11 +104,8 @@ export const EditAction: FC<EditActionProps> = ({
         left: false,
         right: false,
       }}
-      enableDragging={!disableDrag && movable}
+      enableDragging={false}
       enableResizing={false}
-      onDragStart={handleDragStart}
-      onDrag={handleDrag}
-      onDragEnd={handleDragEnd}
       deltaScrollLeft={deltaScrollLeft}
     >
       <div

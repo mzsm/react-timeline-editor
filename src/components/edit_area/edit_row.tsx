@@ -7,13 +7,8 @@ import { EditAction } from './edit_action';
 import './edit_row.less';
 
 export type EditRowProps = CommonProp & {
-  areaRef: React.MutableRefObject<HTMLDivElement>;
   rowData?: TimelineRow;
   style?: React.CSSProperties;
-  dragLineData: DragLineData;
-  setEditorData: (params: TimelineRow[]) => void;
-  /** 设置scroll left */
-  deltaScrollLeft: (scrollLeft: number) => void;
 };
 
 export const EditRow: FC<EditRowProps> = (props) => {

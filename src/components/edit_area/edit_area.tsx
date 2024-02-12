@@ -61,11 +61,9 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
           backgroundPositionX: `0, ${startLeft}px`,
           backgroundSize: `${startLeft}px, ${scaleWidth}px`,
         }}
-        areaRef={editAreaRef}
         key={key}
         rowHeight={row?.rowHeight || rowHeight}
         rowData={row}
-        dragLineData={dragLineData}
       />
     );
   };

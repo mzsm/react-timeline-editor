@@ -12,10 +12,6 @@ import './edit_action.less';
 export type EditActionProps = CommonProp & {
   row: TimelineRow;
   action: TimelineAction;
-  dragLineData: DragLineData;
-  areaRef: React.MutableRefObject<HTMLDivElement>;
-  /** 设置scroll left */
-  deltaScrollLeft?: (delta: number) => void;
 };
 
 export const EditAction: FC<EditActionProps> = ({
@@ -25,16 +21,10 @@ export const EditAction: FC<EditActionProps> = ({
   rowHeight,
   scale,
   scaleWidth,
-  scaleSplitCount,
   startLeft,
-  gridSnap,
 
-  dragLineData,
   getActionRender,
-  areaRef,
-  deltaScrollLeft,
 }) => {
-  const rowRnd = useRef<RowRndApi>();
   const { end, start, selected, effectId } = action;
 
   // 初始化动作坐标数据
@@ -45,9 +35,6 @@ export const EditAction: FC<EditActionProps> = ({
   useLayoutEffect(() => {
     setTransform(parserTimeToTransform({ start, end }, { startLeft, scale, scaleWidth }));
   }, [end, start, startLeft, scaleWidth, scale]);
-
-  // 配置拖拽网格对其属性
-  const gridSize = scaleWidth / scaleSplitCount;
 
   // 动作的名称
   const classNames = ['action'];
@@ -69,28 +56,11 @@ export const EditAction: FC<EditActionProps> = ({
   }
 
   return (
-    <RowDnd
-      ref={rowRnd}
-      parentRef={areaRef}
-      start={startLeft}
-      left={transform.left}
-      width={transform.width}
-      grid={(gridSnap && gridSize) || DEFAULT_MOVE_GRID}
-      adsorptionDistance={gridSnap ? Math.max((gridSize || DEFAULT_MOVE_GRID) / 2, DEFAULT_ADSORPTION_DISTANCE) : DEFAULT_ADSORPTION_DISTANCE}
-      adsorptionPositions={dragLineData.assistPositions}
-      edges={{
-        left: false,
-        right: false,
-      }}
-      enableDragging={false}
-      deltaScrollLeft={deltaScrollLeft}
+    <div
+      className={prefix((classNames || []).join(' '))}
+      style={{ height: rowHeight, width: transform.width, left: transform.left }}
     >
-      <div
-        className={prefix((classNames || []).join(' '))}
-        style={{ height: rowHeight }}
-      >
-        {getActionRender && getActionRender(nowAction, nowRow)}
-      </div>
-    </RowDnd>
+      {getActionRender && getActionRender(nowAction, nowRow)}
+    </div>
   );
 };

@@ -49,7 +49,7 @@ export const EditAction: FC<EditActionProps> = ({
   deltaScrollLeft,
 }) => {
   const rowRnd = useRef<RowRndApi>();
-  const { id, maxEnd, minStart, end, start, selected, flexible = true, movable = true, effectId } = action;
+  const { id, maxEnd, minStart, end, start, selected, movable = true, effectId } = action;
 
   // 获取最大/最小 像素范围
   const leftLimit = parserTimeToPixel(minStart || 0, {
@@ -82,7 +82,6 @@ export const EditAction: FC<EditActionProps> = ({
   const classNames = ['action'];
   if (movable) classNames.push('action-movable');
   if (selected) classNames.push('action-selected');
-  if (flexible) classNames.push('action-flexible');
   if (effects[effectId]) classNames.push(`action-effect-${effectId}`);
 
   /** 计算scale count */
@@ -182,11 +181,11 @@ export const EditAction: FC<EditActionProps> = ({
         right: rightLimit,
       }}
       edges={{
-        left: !disableDrag && flexible && `.${prefix('action-left-stretch')}`,
-        right: !disableDrag && flexible && `.${prefix('action-right-stretch')}`,
+        left: false,
+        right: false,
       }}
       enableDragging={!disableDrag && movable}
-      enableResizing={!disableDrag && flexible}
+      enableResizing={false}
       onDragStart={handleDragStart}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
@@ -200,8 +199,6 @@ export const EditAction: FC<EditActionProps> = ({
         style={{ height: rowHeight }}
       >
         {getActionRender && getActionRender(nowAction, nowRow)}
-        {flexible && <div className={prefix('action-left-stretch')} />}
-        {flexible && <div className={prefix('action-right-stretch')} />}
       </div>
     </RowDnd>
   );

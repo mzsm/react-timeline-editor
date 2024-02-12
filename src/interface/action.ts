@@ -15,8 +15,6 @@ export interface TimelineAction {
 
   /** 动作是否被选中 */
   selected?: boolean;
-  /** 动作是否可伸缩 */
-  flexible?: boolean;
   /** 动作是否可移动 */
   movable?: boolean;
   /** 动作是否禁止运行 */

@@ -38,9 +38,6 @@ export const EditAction: FC<EditActionProps> = ({
   onActionMoveStart,
   onActionMoving,
   onActionMoveEnd,
-  onActionResizeStart,
-  onActionResizeEnd,
-  onActionResizing,
 
   dragLineData,
   setEditorData,
@@ -122,35 +119,6 @@ export const EditAction: FC<EditActionProps> = ({
     // 执行回调
     if (onActionMoveEnd) onActionMoveEnd({ action, row, start, end });
   };
-
-  const handleResizeStart: RndResizeStartCallback = (dir) => {
-    onActionResizeStart && onActionResizeStart({ action, row, dir });
-  };
-
-  const handleResizing: RndResizeCallback = (dir, { left, width }) => {
-    if (onActionResizing) {
-      const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
-      const result = onActionResizing({ action, row, start, end, dir });
-      if (result === false) return false;
-    }
-    setTransform({ left, width });
-    handleScaleCount(left, width);
-  };
-
-  const handleResizeEnd: RndResizeEndCallback = (dir, { left, width }) => {
-    // 计算时间
-    const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
-
-    // 设置数据
-    const rowItem = editorData.find((item) => item.id === row.id);
-    const action = rowItem.actions.find((item) => item.id === id);
-    action.start = start;
-    action.end = end;
-    setEditorData(editorData);
-
-    // 触发回调
-    if (onActionResizeEnd) onActionResizeEnd({ action, row, start, end, dir });
-  };
   //#endregion
 
   const nowAction = {
@@ -189,9 +157,6 @@ export const EditAction: FC<EditActionProps> = ({
       onDragStart={handleDragStart}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
-      onResizeStart={handleResizeStart}
-      onResize={handleResizing}
-      onResizeEnd={handleResizeEnd}
       deltaScrollLeft={deltaScrollLeft}
     >
       <div

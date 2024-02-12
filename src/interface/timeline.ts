@@ -97,18 +97,6 @@ export interface EditData {
    */
   onActionMoveEnd?: (params: { action: TimelineAction; row: TimelineRow; start: number; end: number }) => void;
   /**
-   * @description 开始改变大小回调
-   */
-  onActionResizeStart?: (params: { action: TimelineAction; row: TimelineRow; dir: 'right' | 'left' }) => void;
-  /**
-   * @description 开始大小回调（return false可阻止改变）
-   */
-  onActionResizing?: (params: { action: TimelineAction; row: TimelineRow; start: number; end: number; dir: 'right' | 'left' }) => void | boolean;
-  /**
-   * @description 改变大小结束回调（return false可阻止onChange触发）
-   */
-  onActionResizeEnd?: (params: { action: TimelineAction; row: TimelineRow; start: number; end: number; dir: 'right' | 'left' }) => void;
-  /**
    * @description 点击行回调
    */
   onClickRow?: (

@@ -49,7 +49,6 @@ export const EditAction: FC<EditActionProps> = ({
   deltaScrollLeft,
 }) => {
   const rowRnd = useRef<RowRndApi>();
-  const isDragWhenClick = useRef(false);
   const { id, maxEnd, minStart, end, start, selected, flexible = true, movable = true, effectId } = action;
 
   // 获取最大/最小 像素范围
@@ -101,8 +100,6 @@ export const EditAction: FC<EditActionProps> = ({
     onActionMoveStart && onActionMoveStart({ action, row });
   };
   const handleDrag: RndDragCallback = ({ left, width }) => {
-    isDragWhenClick.current = true;
-
     if (onActionMoving) {
       const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
       const result = onActionMoving({ action, row, start, end });
@@ -132,7 +129,6 @@ export const EditAction: FC<EditActionProps> = ({
   };
 
   const handleResizing: RndResizeCallback = (dir, { left, width }) => {
-    isDragWhenClick.current = true;
     if (onActionResizing) {
       const { start, end } = parserTransformToTime({ left, width }, { scaleWidth, scale, startLeft });
       const result = onActionResizing({ action, row, start, end, dir });
@@ -200,9 +196,6 @@ export const EditAction: FC<EditActionProps> = ({
       deltaScrollLeft={deltaScrollLeft}
     >
       <div
-        onMouseDown={() => {
-          isDragWhenClick.current = false;
-        }}
         className={prefix((classNames || []).join(' '))}
         style={{ height: rowHeight }}
       >

@@ -45,7 +45,6 @@ export const EditAction: FC<EditActionProps> = ({
 
   dragLineData,
   setEditorData,
-  onDoubleClickAction,
   onContextMenuAction,
   getActionRender,
   handleTime,
@@ -206,12 +205,6 @@ export const EditAction: FC<EditActionProps> = ({
       <div
         onMouseDown={() => {
           isDragWhenClick.current = false;
-        }}
-        onDoubleClick={(e) => {
-          if (onDoubleClickAction) {
-            const time = handleTime(e);
-            onDoubleClickAction(e, { row, action, time: time });
-          }
         }}
         onContextMenu={(e) => {
           if (onContextMenuAction) {

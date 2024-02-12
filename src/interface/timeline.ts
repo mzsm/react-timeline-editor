@@ -129,17 +129,6 @@ export interface EditData {
     },
   ) => void;
   /**
-   * @description 双击动作回调
-   */
-  onDoubleClickAction?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      action: TimelineAction;
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
    * @description 右键行回调
    */
   onContextMenuRow?: (

@@ -12,7 +12,6 @@ export const InteractComp: FC<{
   const nodeRef = useRef<HTMLElement>();
   const interactable = useRef<Interactable>();
   const draggableOptionsRef = useRef<DraggableOptions>();
-  const resizableOptionsRef = useRef<ResizableOptions>();
 
   useEffect(() => {
     draggableOptionsRef.current = { ...draggableOptions };

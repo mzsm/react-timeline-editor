@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { ScrollSync } from 'react-virtualized';
-import { CommonProp } from '../../interface/common_prop';
-import { prefix } from '../../utils/deal_class_prefix';
-import { parserPixelToTime, parserTimeToPixel } from '../../utils/deal_data';
+import { CommonProp } from '@/interface/common_prop';
+import { prefix } from '@/utils/deal_class_prefix';
+import { parserPixelToTime, parserTimeToPixel } from '@/utils/deal_data';
 import { RowDnd } from '../row_rnd/row_rnd';
 import { RowRndApi } from '../row_rnd/row_rnd_interface';
 import './cursor.less';

@@ -1,10 +1,10 @@
 import { Interactable } from '@interactjs/core/Interactable';
-import { DragEvent, ResizeEvent } from '@interactjs/types/index';
+import { DragEvent } from '@interactjs/types';
 import React, { ReactElement, useEffect, useImperativeHandle, useRef } from 'react';
-import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID, DEFAULT_START_LEFT } from '../../interface/const';
+import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID, DEFAULT_START_LEFT } from '@/interface/const';
 import { useAutoScroll } from './hooks/useAutoScroll';
 import { InteractComp } from './interactable';
-import { Direction, RowRndApi, RowRndProps } from './row_rnd_interface';
+import { RowRndApi, RowRndProps } from './row_rnd_interface';
 
 export const RowDnd = React.forwardRef<RowRndApi, RowRndProps>(
   (
@@ -34,7 +34,7 @@ export const RowDnd = React.forwardRef<RowRndApi, RowRndProps>(
     const interactable = useRef<Interactable>();
     const deltaX = useRef(0);
     const isAdsorption = useRef(false);
-    const { initAutoScroll, dealDragAutoScroll, dealResizeAutoScroll, stopAutoScroll } = useAutoScroll(parentRef);
+    const { initAutoScroll, dealDragAutoScroll, stopAutoScroll } = useAutoScroll(parentRef);
 
     useEffect(() => {
       return () => {
@@ -82,7 +82,7 @@ export const RowDnd = React.forwardRef<RowRndApi, RowRndProps>(
     //#endregion
 
     //#region [rgba(188,188,120,0.05)] 回调api
-    const handleMoveStart = (e: DragEvent) => {
+    const handleMoveStart = () => {
       deltaX.current = 0;
       isAdsorption.current = false;
       initAutoScroll();

@@ -1,5 +1,3 @@
-import { DragEvent, ResizeEvent } from "@interactjs/types/index";
-
 type EventData = {
   lastLeft: number;
   left: number;

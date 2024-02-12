@@ -83,7 +83,6 @@ export const EditAction: FC<EditActionProps> = ({
         right: false,
       }}
       enableDragging={false}
-      enableResizing={false}
       deltaScrollLeft={deltaScrollLeft}
     >
       <div

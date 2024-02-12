@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { OnScrollParams } from 'react-virtualized';
 import { ITimelineEngine } from '..';
-import { Emitter } from '../engine/emitter';
-import { EventTypes } from '../engine/events';
+import { Emitter } from '@/engine/emitter';
+import { EventTypes } from '@/engine/events';
 import { TimelineAction, TimelineRow } from './action';
 import { TimelineEffect } from './effect';
 export * from './action';

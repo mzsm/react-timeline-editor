@@ -115,10 +115,6 @@ export interface EditData {
     },
   ) => void;
   /**
-   * @description 获取要提示辅助线的action id列表，在move/resize start 时进行计算，默认获取除当前移动action的全部
-   */
-  getAssistDragLineActionIds?: (params: { action: TimelineAction; editorData: TimelineRow[]; row: TimelineRow }) => string[];
-  /**
    * @description cursor开始拖拽事件
    */
   onCursorDragStart?: (time: number) => void;

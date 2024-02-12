@@ -2,9 +2,7 @@ import React, { useEffect, useImperativeHandle, useLayoutEffect, useRef } from '
 import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtualized';
 import { TimelineRow } from '../../interface/action';
 import { CommonProp } from '../../interface/common_prop';
-import { EditData } from '../../interface/timeline';
 import { prefix } from '../../utils/deal_class_prefix';
-import { parserTimeToPixel } from '../../utils/deal_data';
 import { DragLines } from './drag_lines';
 import './edit_area.less';
 import { EditRow } from './edit_row';
@@ -37,20 +35,10 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
     startLeft,
     scrollLeft,
     scrollTop,
-    scale,
-    hideCursor,
-    cursorTime,
     onScroll,
     dragLine,
-    getAssistDragLineActionIds,
-    onActionMoveEnd,
-    onActionMoveStart,
-    onActionMoving,
-    onActionResizeEnd,
-    onActionResizeStart,
-    onActionResizing,
   } = props;
-  const { dragLineData, initDragLine, updateDragLine, disposeDragLine, defaultGetAssistPosition, defaultGetMovePosition } = useDragLine();
+  const { dragLineData } = useDragLine();
   const editAreaRef = useRef<HTMLDivElement>();
   const gridRef = useRef<Grid>();
   const heightRef = useRef(-1);
@@ -61,43 +49,6 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
       return editAreaRef;
     },
   }));
-
-  const handleInitDragLine: EditData['onActionMoveStart'] = (data) => {
-    if (dragLine) {
-      const assistActionIds =
-        getAssistDragLineActionIds &&
-        getAssistDragLineActionIds({
-          action: data.action,
-          row: data.row,
-          editorData,
-        });
-      const cursorLeft = parserTimeToPixel(cursorTime, { scaleWidth, scale, startLeft });
-      const assistPositions = defaultGetAssistPosition({
-        editorData,
-        assistActionIds,
-        action: data.action,
-        row: data.row,
-        scale,
-        scaleWidth,
-        startLeft,
-        hideCursor,
-        cursorLeft,
-      });
-      initDragLine({ assistPositions });
-    }
-  };
-
-  const handleUpdateDragLine: EditData['onActionMoving'] = (data) => {
-    if (dragLine) {
-      const movePositions = defaultGetMovePosition({
-        ...data,
-        startLeft,
-        scaleWidth,
-        scale,
-      });
-      updateDragLine({ movePositions });
-    }
-  };
 
   /** 获取每个cell渲染内容 */
   const cellRenderer: GridCellRenderer = ({ rowIndex, key, style }) => {
@@ -115,31 +66,6 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
         rowHeight={row?.rowHeight || rowHeight}
         rowData={row}
         dragLineData={dragLineData}
-        onActionMoveStart={(data) => {
-          handleInitDragLine(data);
-          return onActionMoveStart && onActionMoveStart(data);
-        }}
-        onActionResizeStart={(data) => {
-          handleInitDragLine(data);
-
-          return onActionResizeStart && onActionResizeStart(data);
-        }}
-        onActionMoving={(data) => {
-          handleUpdateDragLine(data);
-          return onActionMoving && onActionMoving(data);
-        }}
-        onActionResizing={(data) => {
-          handleUpdateDragLine(data);
-          return onActionResizing && onActionResizing(data);
-        }}
-        onActionResizeEnd={(data) => {
-          disposeDragLine();
-          return onActionResizeEnd && onActionResizeEnd(data);
-        }}
-        onActionMoveEnd={(data) => {
-          disposeDragLine();
-          return onActionMoveEnd && onActionMoveEnd(data);
-        }}
       />
     );
   };

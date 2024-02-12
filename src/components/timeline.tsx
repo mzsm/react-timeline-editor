@@ -190,7 +190,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               ref={(ref) => ((areaRef.current as any) = ref?.domRef.current)}
               disableDrag={disableDrag || isPlaying}
               editorData={editorData}
-              cursorTime={cursorTime}
+              cursorTime={1 /*No need params*/}
               scaleCount={scaleCount}
               setScaleCount={handleSetScaleCount}
               scrollTop={scrollTop}

@@ -119,28 +119,6 @@ export interface EditData {
     },
   ) => void;
   /**
-   * @description 点击动作回调
-   */
-  onClickAction?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      action: TimelineAction;
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
-   * @description 点击动作回调（触发drag时不执行）
-   */
-  onClickActionOnly?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      action: TimelineAction;
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
    * @description 双击行回调
    */
   onDoubleClickRow?: (

@@ -37,7 +37,7 @@ export const EditAction: FC<EditActionProps> = ({
   deltaScrollLeft,
 }) => {
   const rowRnd = useRef<RowRndApi>();
-  const { maxEnd, minStart, end, start, selected, movable = true, effectId } = action;
+  const { maxEnd, minStart, end, start, selected, effectId } = action;
 
   // 获取最大/最小 像素范围
   const leftLimit = parserTimeToPixel(minStart || 0, {
@@ -68,7 +68,6 @@ export const EditAction: FC<EditActionProps> = ({
 
   // 动作的名称
   const classNames = ['action'];
-  if (movable) classNames.push('action-movable');
   if (selected) classNames.push('action-selected');
   if (effects[effectId]) classNames.push(`action-effect-${effectId}`);
 

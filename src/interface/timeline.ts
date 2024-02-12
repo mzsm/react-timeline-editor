@@ -139,17 +139,6 @@ export interface EditData {
     },
   ) => void;
   /**
-   * @description 右键动作回调
-   */
-  onContextMenuAction?: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    param: {
-      action: TimelineAction;
-      row: TimelineRow;
-      time: number;
-    },
-  ) => void;
-  /**
    * @description 获取要提示辅助线的action id列表，在move/resize start 时进行计算，默认获取除当前移动action的全部
    */
   getAssistDragLineActionIds?: (params: { action: TimelineAction; editorData: TimelineRow[]; row: TimelineRow }) => string[];

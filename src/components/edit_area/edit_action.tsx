@@ -14,7 +14,6 @@ export type EditActionProps = CommonProp & {
   action: TimelineAction;
   dragLineData: DragLineData;
   setEditorData: (params: TimelineRow[]) => void;
-  handleTime: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => number;
   areaRef: React.MutableRefObject<HTMLDivElement>;
   /** 设置scroll left */
   deltaScrollLeft?: (delta: number) => void;
@@ -45,9 +44,7 @@ export const EditAction: FC<EditActionProps> = ({
 
   dragLineData,
   setEditorData,
-  onContextMenuAction,
   getActionRender,
-  handleTime,
   areaRef,
   deltaScrollLeft,
 }) => {
@@ -205,12 +202,6 @@ export const EditAction: FC<EditActionProps> = ({
       <div
         onMouseDown={() => {
           isDragWhenClick.current = false;
-        }}
-        onContextMenu={(e) => {
-          if (onContextMenuAction) {
-            const time = handleTime(e);
-            onContextMenuAction(e, { row, action, time: time });
-          }
         }}
         className={prefix((classNames || []).join(' '))}
         style={{ height: rowHeight }}

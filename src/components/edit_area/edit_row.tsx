@@ -74,7 +74,6 @@ export const EditRow: FC<EditRowProps> = (props) => {
         <EditAction
           key={action.id}
           {...props}
-          handleTime={handleTime}
           row={rowData}
           action={action}
         />

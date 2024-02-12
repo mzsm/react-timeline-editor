@@ -1,9 +1,9 @@
 import React, { FC, useLayoutEffect, useRef, useState } from 'react';
-import { TimelineAction, TimelineRow } from '../../interface/action';
-import { CommonProp } from '../../interface/common_prop';
-import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID } from '../../interface/const';
-import { prefix } from '../../utils/deal_class_prefix';
-import { parserTimeToTransform, parserTransformToTime } from '../../utils/deal_data';
+import { TimelineAction, TimelineRow } from '@/interface/action';
+import { CommonProp } from '@/interface/common_prop';
+import { DEFAULT_ADSORPTION_DISTANCE, DEFAULT_MOVE_GRID } from '@/interface/const';
+import { prefix } from '@/utils/deal_class_prefix';
+import { parserTimeToTransform, parserTransformToTime } from '@/utils/deal_data';
 import { RowDnd } from '../row_rnd/row_rnd';
 import { RowRndApi } from '../row_rnd/row_rnd_interface';
 import { DragLineData } from './drag_lines';

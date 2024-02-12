@@ -1,8 +1,8 @@
 import React, { useEffect, useImperativeHandle, useLayoutEffect, useRef } from 'react';
 import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtualized';
-import { TimelineRow } from '../../interface/action';
-import { CommonProp } from '../../interface/common_prop';
-import { prefix } from '../../utils/deal_class_prefix';
+import { TimelineRow } from '@/interface/action';
+import { CommonProp } from '@/interface/common_prop';
+import { prefix } from '@/utils/deal_class_prefix';
 import { DragLines } from './drag_lines';
 import './edit_area.less';
 import { EditRow } from './edit_row';

@@ -3,10 +3,8 @@ import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtual
 import { TimelineRow } from '@/interface/action';
 import { CommonProp } from '@/interface/common_prop';
 import { prefix } from '@/utils/deal_class_prefix';
-import { DragLines } from './drag_lines';
 import './edit_area.less';
 import { EditRow } from './edit_row';
-import { useDragLine } from './hooks/use_drag_line';
 
 export type EditAreaProps = CommonProp & {
   /** 距离左侧滚动距离 */
@@ -36,9 +34,7 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
     scrollLeft,
     scrollTop,
     onScroll,
-    dragLine,
   } = props;
-  const { dragLineData } = useDragLine();
   const editAreaRef = useRef<HTMLDivElement>();
   const gridRef = useRef<Grid>();
   const heightRef = useRef(-1);
@@ -110,7 +106,7 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
               width={width}
               height={height}
               rowHeight={({ index }) => heights[index] || rowHeight}
-              overscanRowCount={10}
+              overscanRowCount={0}
               overscanColumnCount={0}
               onScroll={(param) => {
                 onScroll(param);
@@ -119,7 +115,6 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
           );
         }}
       </AutoSizer>
-      {dragLine && <DragLines scrollLeft={scrollLeft} {...dragLineData} />}
     </div>
   );
 });

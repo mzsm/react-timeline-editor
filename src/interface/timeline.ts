@@ -58,11 +58,6 @@ export interface EditData {
    */
   gridSnap?: boolean;
   /**
-   * @description 启动拖拽辅助线吸附
-   * @default false
-   */
-  dragLine?: boolean;
-  /**
    * @description 是否隐藏光标
    * @default false
    */

@@ -4,27 +4,24 @@ import { TimelineRow } from '@/interface/action';
 import { CommonProp } from '@/interface/common_prop';
 import { prefix } from '@/utils/deal_class_prefix';
 import './edit_area.less';
-import { EditRow } from './edit_row';
+import { EditRow, ExternalEditRowProps } from './edit_row';
 
-export type EditAreaProps = CommonProp & {
-  /** 距离左侧滚动距离 */
+export type ExternalEditAreaProps = ExternalEditRowProps;
+
+type InternalEditAreaProps = {
+  editorData: TimelineRow[];
+  scaleCount: number,
   scrollLeft: number;
-  /** 距离顶部滚动距离 */
   scrollTop: number;
-  /** 滚动回调，用于同步滚动 */
   onScroll: (params: OnScrollParams) => void;
-  /** 设置编辑器数据 */
-  setEditorData: (params: TimelineRow[]) => void;
-  /** 设置scroll left */
-  deltaScrollLeft: (scrollLeft: number) => void;
-};
+}
 
 /** edit area ref数据 */
 export interface EditAreaState {
   domRef: React.MutableRefObject<HTMLDivElement>;
 }
 
-export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, ref) => {
+export const EditArea = React.forwardRef<EditAreaState, ExternalEditAreaProps & InternalEditAreaProps>((props, ref) => {
   const {
     editorData,
     rowHeight,

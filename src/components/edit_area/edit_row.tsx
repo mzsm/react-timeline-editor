@@ -6,7 +6,7 @@ import './edit_row.less';
 
 export type ExternalEditRowProps = ExternalEditActionProps
 
-export type InternalEditRowProps =  {
+type InternalEditRowProps =  {
   rowData?: TimelineRow;
   style?: React.CSSProperties;
 };

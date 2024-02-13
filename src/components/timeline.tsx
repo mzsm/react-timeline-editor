@@ -24,10 +24,10 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     startLeft,
     minScaleCount,
     maxScaleCount,
-    onChange,
     engine,
     autoReRender = true,
     onScroll: onScrollVertical,
+    rowHeight,
   } = checkedProps;
 
   const engineRef = useRef<ITimelineEngine>(engine || new TimelineEngine());
@@ -69,15 +69,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
   const handleSetScaleCount = (value: number) => {
     const data = Math.min(maxScaleCount, Math.max(minScaleCount, value));
     setScaleCount(data);
-  };
-
-  /** 处理主动数据变化 */
-  const handleEditorDataChange = (editorData: TimelineRow[]) => {
-    const result = onChange(editorData);
-    if (result !== false) {
-      engineRef.current.data = editorData;
-      autoReRender && engineRef.current.reRender();
-    }
   };
 
   /** 处理光标 */
@@ -180,18 +171,15 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               scrollLeft={scrollLeft}
             />
             <EditArea
-              {...checkedProps}
-              timelineWidth={width}
+              scaleWidth={scaleWidth}
+              scale={scale}
+              startLeft={startLeft}
+              rowHeight={rowHeight}
               ref={(ref) => ((areaRef.current as any) = ref?.domRef.current)}
-              disableDrag={disableDrag || isPlaying}
               editorData={editorData}
-              cursorTime={1 /*No need params*/}
               scaleCount={scaleCount}
-              setScaleCount={handleSetScaleCount}
               scrollTop={scrollTop}
               scrollLeft={scrollLeft}
-              setEditorData={handleEditorDataChange}
-              deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
               onScroll={(params) => {
                 onScroll(params);
                 onScrollVertical && onScrollVertical(params);

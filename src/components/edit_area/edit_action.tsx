@@ -9,7 +9,7 @@ export type ExternalEditActionProps = {
   scale: number,
   scaleWidth: number,
   startLeft: number,
-  getActionRender?: (action: TimelineAction, row: TimelineRow) => ReactNode;
+  getActionRender: (action: TimelineAction, row: TimelineRow, editActionParams?: {height: number, width: number, left: number, className: string}) => ReactNode;
 }
 
 type InternalEditActionProps = {

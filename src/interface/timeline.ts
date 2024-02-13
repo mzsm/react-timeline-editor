@@ -69,7 +69,7 @@ export interface EditData {
   /**
    * @description 自定义action区域渲染
    */
-  getActionRender?: (action: TimelineAction, row: TimelineRow) => ReactNode;
+  getActionRender?: (action: TimelineAction, row: TimelineRow, editActionParams?: {height: number, width: number, left: number, className: string}) => ReactNode;
   /**
    * @description 自定义scale渲染
    */

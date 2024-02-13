@@ -28,6 +28,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     autoReRender = true,
     onScroll: onScrollVertical,
     rowHeight,
+    getActionRender,
   } = checkedProps;
 
   const engineRef = useRef<ITimelineEngine>(engine || new TimelineEngine());
@@ -171,6 +172,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               scrollLeft={scrollLeft}
             />
             <EditArea
+              getActionRender={getActionRender}
               scaleWidth={scaleWidth}
               scale={scale}
               startLeft={startLeft}

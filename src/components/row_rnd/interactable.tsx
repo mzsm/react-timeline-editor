@@ -8,6 +8,7 @@ export const InteractComp: FC<{
   interactRef?: React.MutableRefObject<Interactable>;
   draggable: boolean;
   draggableOptions: DraggableOptions;
+  children: ReactElement
 }> = ({ children, interactRef, draggable, draggableOptions }) => {
   const nodeRef = useRef<HTMLElement>();
   const interactable = useRef<Interactable>();

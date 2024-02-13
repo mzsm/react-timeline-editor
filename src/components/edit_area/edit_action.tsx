@@ -29,15 +29,24 @@ export const EditAction: FC<ExternalEditActionProps & InternalEditActionProps> =
   const { end, start, selected } = action;
 
   const transform = useMemo(() => parserTimeToTransform({ start, end }, { startLeft, scale, scaleWidth }), [end, start, startLeft, scaleWidth, scale]);
+  const style = useMemo(() => ({ height: rowHeight, width: transform.width, left: transform.left }), [rowHeight, transform.width, transform.left]);
 
   // 动作的名称
   const classNames = ['action'];
-  if (selected) classNames.push('action-selected');
+  if (selected) {
+    classNames.push('action-selected');
+  }
+
+  const className = prefix((classNames || []).join(' '));
+  const UserActionRender = getActionRender && getActionRender(action, row, { ...style, className });
+  if (UserActionRender) {
+    return UserActionRender
+  }
 
   return (
     <div
-      className={prefix((classNames || []).join(' '))}
-      style={{ height: rowHeight, width: transform.width, left: transform.left }}
+      className={className}
+      style={style}
     >
       {getActionRender && getActionRender(action, row)}
     </div>

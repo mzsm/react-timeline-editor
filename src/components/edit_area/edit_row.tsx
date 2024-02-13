@@ -14,6 +14,11 @@ export const EditRow: FC<EditRowProps> = (props) => {
   const {
     rowData,
     style = {},
+    rowHeight,
+    scaleWidth,
+    scale,
+    startLeft,
+    getActionRender
   } = props;
 
   const classNames = ['edit-row'];
@@ -28,8 +33,12 @@ export const EditRow: FC<EditRowProps> = (props) => {
     >
       {(rowData?.actions || []).map((action) => (
         <EditAction
+          rowHeight={rowHeight}
+          scaleWidth={scaleWidth}
+          scale={scale}
+          startLeft={startLeft}
+          getActionRender={getActionRender}
           key={action.id}
-          {...props}
           row={rowData}
           action={action}
         />

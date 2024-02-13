@@ -1,13 +1,17 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { TimelineAction, TimelineRow } from '@/interface/action';
-import { CommonProp } from '@/interface/common_prop';
 import { prefix } from '@/utils/deal_class_prefix';
 import { parserTimeToTransform } from '@/utils/deal_data';
 import './edit_action.less';
 
-export type EditActionProps = CommonProp & {
+export type EditActionProps = {
   row: TimelineRow;
   action: TimelineAction;
+  rowHeight: number,
+  scale: number,
+  scaleWidth: number,
+  startLeft: number,
+  getActionRender?: (action: TimelineAction, row: TimelineRow) => ReactNode;
 };
 
 export const EditAction: FC<EditActionProps> = ({
@@ -17,7 +21,6 @@ export const EditAction: FC<EditActionProps> = ({
   scale,
   scaleWidth,
   startLeft,
-
   getActionRender,
 }) => {
   const { end, start, selected } = action;

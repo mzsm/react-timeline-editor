@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TimelineAction, TimelineRow } from '@xzdarcy/react-timeline-editor';
+import { TimelineAction, TimelineRow } from '@itershukov/react-timeline-editor';
 
 export const CustomRender0: FC<{ action: TimelineAction; row: TimelineRow }> =
   ({ action, row }) => {
@@ -7,8 +7,8 @@ export const CustomRender0: FC<{ action: TimelineAction; row: TimelineRow }> =
       <div className={'effect0'}>
         <div className={`effect0-text`}>{`播放音频: ${(
           action.end - action.start
-        ).toFixed(2)}s ${action.movable === false ? '（不可移动）' : ''} ${
-          action.flexible === false ? '（不可缩放）' : ''
+        ).toFixed(2)}s} ${
+          '1'
         }`}</div>
       </div>
     );

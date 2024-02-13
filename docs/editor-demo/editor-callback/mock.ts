@@ -1,4 +1,4 @@
-import { TimelineEffect, TimelineRow } from '@xzdarcy/react-timeline-editor';
+import { TimelineEffect, TimelineRow } from '@itershukov/react-timeline-editor';
 
 export const mockEffect: Record<string, TimelineEffect> = {
   effect0: {
@@ -20,7 +20,6 @@ export const mockData: TimelineRow[] = [
         id: "action00",
         start: 0,
         end: 2,
-        effectId: "effect0",
       },
     ],
   },
@@ -31,7 +30,6 @@ export const mockData: TimelineRow[] = [
         id: "action10",
         start: 1.5,
         end: 4,
-        effectId: "effect1",
       }
     ],
   }

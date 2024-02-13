@@ -4,7 +4,6 @@ import { ITimelineEngine } from '..';
 import { Emitter } from '@/engine/emitter';
 import { EventTypes } from '@/engine/events';
 import { TimelineAction, TimelineRow } from './action';
-import { TimelineEffect } from './effect';
 export * from './action';
 export * from './effect';
 

@@ -1,5 +1,5 @@
-import { DEFAULT_ROW_HEIGHT, DEFAULT_SCALE, DEFAULT_SCALE_SPLIT_COUNT, DEFAULT_SCALE_WIDTH, DEFAULT_START_LEFT, MIN_SCALE_COUNT } from "../interface/const";
-import { TimelineEditor } from "../interface/timeline";
+import { DEFAULT_ROW_HEIGHT, DEFAULT_SCALE, DEFAULT_SCALE_SPLIT_COUNT, DEFAULT_SCALE_WIDTH, DEFAULT_START_LEFT, MIN_SCALE_COUNT } from '@/interface/const';
+import { TimelineEditor } from '@/interface/timeline';
 import ConsoleLogger from "./logger";
 const logger = new ConsoleLogger('timeline');
 

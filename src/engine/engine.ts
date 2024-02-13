@@ -172,7 +172,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
     this._playState = PLAYING;
 
     // activeIds 运行 start
-    this._startOrStop('start');
+    this._startOrStop();
 
     // 触发事件
     this.trigger('play', { engine: this });
@@ -192,7 +192,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
     if (this.isPlaying) {
       this._playState = PAUSED;
       // activeIds 运行 stop
-      this._startOrStop('stop');
+      this._startOrStop();
 
       this.trigger('paused', { engine: this });
     }
@@ -205,7 +205,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
     this.trigger('ended', { engine: this });
   }
 
-  private _startOrStop(type?: 'start' | 'stop') {
+  private _startOrStop() {
 
   }
 

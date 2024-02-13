@@ -1,8 +1,8 @@
-import React, { FC, useLayoutEffect, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 import { TimelineAction, TimelineRow } from '@/interface/action';
 import { CommonProp } from '@/interface/common_prop';
 import { prefix } from '@/utils/deal_class_prefix';
-import { parserTimeToTransform, parserTransformToTime } from '@/utils/deal_data';
+import { parserTimeToTransform } from '@/utils/deal_data';
 import './edit_action.less';
 
 export type EditActionProps = CommonProp & {

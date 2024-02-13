@@ -97,31 +97,8 @@ export interface TimelineState {
   target: HTMLElement;
   /** 运行监听器 */
   listener: Emitter<EventTypes>;
-  /** 是否正在播放 */
-  isPlaying: boolean;
-  /** 是否暂停中 */
-  isPaused: boolean;
   /** 设置当前播放时间 */
   setTime: (time: number) => void;
-  /** 获取当前播放时间 */
-  getTime: () => number;
-  /** 设置播放速率 */
-  setPlayRate: (rate: number) => void;
-  /** 设置播放速率 */
-  getPlayRate: () => number;
-  /** 重新渲染当前时间 */
-  reRender: () => void;
-  /** 播放 */
-  play: (param: {
-    /** 默认从头运行到尾, 优先级大于autoEnd */
-    toTime?: number;
-    /** 是否播放完后自动结束 */
-    autoEnd?: boolean;
-    /** 运行的actionId列表，不穿默认全部运行 */
-    runActionIds?: string[];
-  }) => boolean;
-  /** 暂停 */
-  pause: () => void;
   /** 设置scroll left */
   setScrollLeft: (val: number) => void;
   /** 设置scroll top */
@@ -152,11 +129,6 @@ export interface TimelineEditor extends EditData {
    * @description 自定义timeline样式
    */
   style?: React.CSSProperties;
-  /**
-   * @description 是否自动重新渲染（当数据改变或光标时间改变时update tick）
-   * @default true
-   */
-  autoReRender?: boolean;
   /**
    * @description 数据改变回调，会在操作动作end改变数据后触发(返回false会阻止自动engine同步，用于减少性能开销)
    */

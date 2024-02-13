@@ -14,7 +14,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
   const checkedProps = checkProps(props);
   const { style } = props;
   let {
-    editorData: data,
+    editorData,
     scrollTop,
     autoScroll,
     hideCursor,
@@ -25,7 +25,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     minScaleCount,
     maxScaleCount,
     engine,
-    autoReRender = true,
     onScroll: onScrollVertical,
     rowHeight,
     getActionRender,
@@ -36,9 +35,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
   const areaRef = useRef<HTMLDivElement>();
   const scrollSync = useRef<ScrollSync>();
 
-  // 编辑器数据
-  const [editorData, setEditorData] = useState(data);
-  // scale数量
   const [scaleCount, setScaleCount] = useState(MIN_SCALE_COUNT);
   // 光标距离
   const [cursorTime, setCursorTime] = useState(START_CURSOR_TIME);
@@ -49,17 +45,8 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
 
   /** 监听数据变化 */
   useLayoutEffect(() => {
-    handleSetScaleCount(getScaleCountByRows(data, { scale }));
-    setEditorData(data);
-  }, [data, minScaleCount, maxScaleCount, scale]);
-
-  useEffect(() => {
-    engineRef.current.data = editorData;
-  }, [editorData]);
-
-  useEffect(() => {
-    autoReRender && engineRef.current.reRender();
-  }, [editorData]);
+    handleSetScaleCount(getScaleCountByRows(editorData, { scale }));
+  }, [editorData, minScaleCount, maxScaleCount, scale]);
 
   // deprecated
   useEffect(() => {
@@ -85,7 +72,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     let result = true;
     if (updateTime) {
       result = engineRef.current.setTime(time);
-      autoReRender && engineRef.current.reRender();
     }
     result && setCursorTime(time);
     return result;
@@ -119,19 +105,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     get listener() {
       return engineRef.current;
     },
-    get isPlaying() {
-      return engineRef.current.isPlaying;
-    },
-    get isPaused() {
-      return engineRef.current.isPaused;
-    },
-    setPlayRate: engineRef.current.setPlayRate.bind(engineRef.current),
-    getPlayRate: engineRef.current.getPlayRate.bind(engineRef.current),
     setTime: (time: number) => handleSetCursor({ time }),
-    getTime: engineRef.current.getTime.bind(engineRef.current),
-    reRender: engineRef.current.reRender.bind(engineRef.current),
-    play: (param: Parameters<TimelineState['play']>[0]) => engineRef.current.play({ ...param }),
-    pause: engineRef.current.pause.bind(engineRef.current),
     setScrollLeft: (val) => {
       scrollSync.current && scrollSync.current.setState({ scrollLeft: Math.max(val, 0) });
     },

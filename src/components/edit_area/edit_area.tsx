@@ -1,7 +1,6 @@
 import React, { useEffect, useImperativeHandle, useLayoutEffect, useRef } from 'react';
 import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtualized';
 import { TimelineRow } from '@/interface/action';
-import { CommonProp } from '@/interface/common_prop';
 import { prefix } from '@/utils/deal_class_prefix';
 import './edit_area.less';
 import { EditRow, ExternalEditRowProps } from './edit_row';

@@ -14,10 +14,6 @@ export interface EditData {
    */
   editorData: TimelineRow[];
   /**
-   * @description 时间轴动作效果map
-   */
-  effects: Record<string, TimelineEffect>;
-  /**
    * @description 单个刻度标记范畴（>0）
    * @default 1
    */

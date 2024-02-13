@@ -13,7 +13,6 @@ export type EditActionProps = CommonProp & {
 export const EditAction: FC<EditActionProps> = ({
   row,
   action,
-  effects,
   rowHeight,
   scale,
   scaleWidth,
@@ -21,7 +20,7 @@ export const EditAction: FC<EditActionProps> = ({
 
   getActionRender,
 }) => {
-  const { end, start, selected, effectId } = action;
+  const { end, start, selected } = action;
 
   // 初始化动作坐标数据
   const [transform, setTransform] = useState(() => {
@@ -35,7 +34,6 @@ export const EditAction: FC<EditActionProps> = ({
   // 动作的名称
   const classNames = ['action'];
   if (selected) classNames.push('action-selected');
-  if (effects[effectId]) classNames.push(`action-effect-${effectId}`);
 
 
   const nowAction = {

@@ -6,7 +6,6 @@ const logger = new ConsoleLogger('timeline');
 export function checkProps(props: TimelineEditor): TimelineEditor {
   let {
     editorData = [],
-    effects = {},
     scrollTop = 0,
     scale = DEFAULT_SCALE,
     scaleSplitCount = DEFAULT_SCALE_SPLIT_COUNT,
@@ -64,7 +63,6 @@ export function checkProps(props: TimelineEditor): TimelineEditor {
   return {
     ...temp,
     editorData,
-    effects,
     scrollTop,
     scale,
     scaleSplitCount,

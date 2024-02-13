@@ -14,7 +14,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
   const checkedProps = checkProps(props);
   const { style } = props;
   let {
-    effects,
     editorData: data,
     scrollTop,
     autoScroll,
@@ -52,10 +51,6 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     handleSetScaleCount(getScaleCountByRows(data, { scale }));
     setEditorData(data);
   }, [data, minScaleCount, maxScaleCount, scale]);
-
-  useEffect(() => {
-    engineRef.current.effects = effects;
-  }, [effects]);
 
   useEffect(() => {
     engineRef.current.data = editorData;

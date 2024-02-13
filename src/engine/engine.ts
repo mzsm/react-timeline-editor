@@ -1,5 +1,5 @@
-import { TimelineAction, TimelineRow } from '../interface/action';
-import { TimelineEffect } from '../interface/effect';
+import { TimelineAction, TimelineRow } from '@/interface/action';
+import { TimelineEffect } from '@/interface/effect';
 import { Emitter } from './emitter';
 import { Events, EventTypes } from './events';
 
@@ -206,17 +206,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   private _startOrStop(type?: 'start' | 'stop') {
-    for (let i = 0; i < this._activeActionIds.length; i++) {
-      const actionId = this._activeActionIds[i];
-      const action = this._actionMap[actionId];
-      const effect = this._effectMap[action?.effectId];
 
-      if (type === 'start') {
-        effect?.source?.start && effect.source.start({ action, effect, engine: this, isPlaying: this.isPlaying, time: this.getTime() });
-      } else if (type === 'stop') {
-        effect?.source?.stop && effect.source.stop({ action, effect, engine: this, isPlaying: this.isPlaying, time: this.getTime() });
-      }
-    }
   }
 
   /** 每帧执行 */
@@ -255,30 +245,10 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   private _tickAction(time: number) {
     this._dealEnter(time);
     this._dealLeave(time);
-
-    // render
-    const length = this._activeActionIds.length;
-    for (let i = 0; i < length; i++) {
-      const actionId = this._activeActionIds[i];
-      const action = this._actionMap[actionId];
-      const effect = this._effectMap[action.effectId];
-      if (effect && effect.source?.update) {
-        effect.source.update({ time, action, isPlaying: this.isPlaying, effect, engine: this });
-      }
-    }
   }
 
   /** 重置active数据 */
   private _dealClear() {
-    while (this._activeActionIds.length) {
-      const actionId = this._activeActionIds.shift();
-      const action = this._actionMap[actionId];
-
-      const effect = this._effectMap[action?.effectId];
-      if (effect?.source?.leave) {
-        effect.source.leave({ action, effect, engine: this, isPlaying: this.isPlaying, time: this.getTime() });
-      }
-    }
     this._next = 0;
   }
 
@@ -295,11 +265,6 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
         if (action.start > time) break;
         // 动作可以执行开始
         if (action.end > time && !this._activeActionIds.includes(actionId)) {
-          const effect = this._effectMap[action.effectId];
-          if (effect && effect.source?.enter) {
-            effect.source.enter({ action, effect, isPlaying: this.isPlaying, time, engine: this });
-          }
-
           this._activeActionIds.push(actionId);
         }
       }
@@ -316,12 +281,6 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
 
       // 不在播放区域内
       if (action.start > time || action.end < time) {
-        const effect = this._effectMap[action.effectId];
-
-        if (effect && effect.source?.leave) {
-          effect.source.leave({ action, effect, isPlaying: this.isPlaying, time, engine: this });
-        }
-
         this._activeActionIds.splice(i, 1);
         continue;
       }

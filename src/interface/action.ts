@@ -10,8 +10,6 @@ export interface TimelineAction {
   start: number;
   /** 动作结束时间 */
   end: number;
-  /** 动作所对应的effectId */
-  effectId: string;
 
   /** 动作是否被选中 */
   selected?: boolean;

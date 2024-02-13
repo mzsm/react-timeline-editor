@@ -33,6 +33,8 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
     startLeft,
     scrollLeft,
     scrollTop,
+    scale,
+    getActionRender,
     onScroll,
   } = props;
   const editAreaRef = useRef<HTMLDivElement>();
@@ -51,7 +53,10 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
     const row = editorData[rowIndex]; // 行数据
     return (
       <EditRow
-        {...props}
+        startLeft={startLeft}
+        scale={scale}
+        scaleWidth={scaleWidth}
+        getActionRender={getActionRender}
         style={{
           ...style,
           backgroundPositionX: `0, ${startLeft}px`,

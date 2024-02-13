@@ -4,17 +4,20 @@ import { prefix } from '@/utils/deal_class_prefix';
 import { parserTimeToTransform } from '@/utils/deal_data';
 import './edit_action.less';
 
-export type EditActionProps = {
-  row: TimelineRow;
-  action: TimelineAction;
+export type ExternalEditActionProps = {
   rowHeight: number,
   scale: number,
   scaleWidth: number,
   startLeft: number,
   getActionRender?: (action: TimelineAction, row: TimelineRow) => ReactNode;
+}
+
+type InternalEditActionProps = {
+  row: TimelineRow;
+  action: TimelineAction;
 };
 
-export const EditAction: FC<EditActionProps> = ({
+export const EditAction: FC<ExternalEditActionProps & InternalEditActionProps> = ({
   row,
   action,
   rowHeight,

@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ScrollSync } from 'react-virtualized';
 import { ITimelineEngine, TimelineEngine } from '@/engine/engine';
 import { PREFIX, START_CURSOR_TIME } from '@/interface/const';

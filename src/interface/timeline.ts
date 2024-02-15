@@ -12,21 +12,13 @@ export interface EditData {
    * @description 时间轴编辑数据
    */
   editorData: TimelineRow[];
+
+  scaleCount: number;
   /**
    * @description 单个刻度标记范畴（>0）
    * @default 1
    */
   scale?: number;
-  /**
-   * @description 最少刻度个数（>=1）
-   * @default 20
-   */
-  minScaleCount?: number;
-  /**
-   * @description 最大刻度个数（>=minScaleCount）
-   * @default Infinity
-   */
-  maxScaleCount?: number;
   /**
    * @description 单个刻度细分单元数（>0整数）
    * @default 10

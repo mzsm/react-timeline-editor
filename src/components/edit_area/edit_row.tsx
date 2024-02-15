@@ -11,7 +11,7 @@ type InternalEditRowProps =  {
   style?: React.CSSProperties;
 };
 
-export const EditRow: FC<ExternalEditRowProps & InternalEditRowProps> = (props) => {
+const EditRowComponent: FC<ExternalEditRowProps & InternalEditRowProps> = (props) => {
   const {
     rowData,
     style = {},
@@ -47,3 +47,37 @@ export const EditRow: FC<ExternalEditRowProps & InternalEditRowProps> = (props) 
     </div>
   );
 };
+
+export const EditRow = React.memo(EditRowComponent, arePropsEqual);
+
+function arePropsEqual(oldProps: ExternalEditRowProps & InternalEditRowProps, newProps: ExternalEditRowProps & InternalEditRowProps) {
+  if (oldProps.rowData !== newProps.rowData) {
+    return false;
+  }
+
+  if (oldProps.startLeft !== newProps.startLeft) {
+    return false;
+  }
+
+  if (oldProps.scale !== newProps.scale) {
+    return false;
+  }
+
+  if (oldProps.scaleWidth !== newProps.scaleWidth) {
+    return false;
+  }
+
+  if (oldProps.getActionRender !== newProps.getActionRender) {
+    return false;
+  }
+
+  if (oldProps.rowHeight !== newProps.rowHeight) {
+    return false;
+  }
+
+  if (Object.keys(oldProps.style).length !== Object.keys(newProps.style).length) {
+    return false;
+  }
+
+  return Object.keys(oldProps.style).every((oldStyleKey: string) => oldProps.style[oldStyleKey] === newProps.style[oldStyleKey]);
+}

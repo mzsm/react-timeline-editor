@@ -74,7 +74,7 @@ export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scal
                   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
                   const position = e.clientX - rect.x;
                   const left = Math.max(position + scrollLeft, startLeft);
-                  if (left > scaleCount * scaleWidth + startLeft - scrollLeft) return;
+                  if (left > scaleCount * scaleWidth + startLeft) return;
 
                   const time = parserPixelToTime(left, { startLeft, scale, scaleWidth });
                   const result = onClickTimeArea && onClickTimeArea(time, e);

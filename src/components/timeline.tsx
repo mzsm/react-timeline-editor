@@ -151,7 +151,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               <Cursor
                 {...checkedProps}
                 timelineWidth={width}
-                disableDrag={isPlaying}
+                disableDrag={true}
                 scrollLeft={scrollLeft}
                 scaleCount={scaleCount}
                 setCursor={handleSetCursor}

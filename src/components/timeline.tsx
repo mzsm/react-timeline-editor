@@ -27,6 +27,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     rowHeight,
     getActionRender,
     scaleCount,
+    onCursorDrag,
   } = checkedProps;
 
   const engineRef = useRef<ITimelineEngine>(engine || new TimelineEngine());
@@ -151,7 +152,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               <Cursor
                 {...checkedProps}
                 timelineWidth={width}
-                disableDrag={true}
+                disableDrag={!onCursorDrag}
                 scrollLeft={scrollLeft}
                 scaleCount={scaleCount}
                 setCursor={handleSetCursor}

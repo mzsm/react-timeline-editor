@@ -14,6 +14,8 @@ export interface EditData {
   editorData: TimelineRow[];
 
   scaleCount: number;
+
+  maxCursorTime: number;
   /**
    * @description 单个刻度标记范畴（>0）
    * @default 1

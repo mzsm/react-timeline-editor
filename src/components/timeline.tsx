@@ -28,6 +28,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     getActionRender,
     scaleCount,
     onCursorDrag,
+    maxCursorTime,
   } = checkedProps;
 
   const engineRef = useRef<ITimelineEngine>(engine || new TimelineEngine());
@@ -54,6 +55,12 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     if (typeof time === 'undefined') {
       if (typeof left === 'undefined') left = parserTimeToPixel(time, { startLeft, scale, scaleWidth });
       time = parserPixelToTime(left, { startLeft, scale, scaleWidth });
+    }
+
+    if (time > maxCursorTime) {
+      engineRef.current.setTime(maxCursorTime);
+      setCursorTime(maxCursorTime);
+      return true;
     }
 
     let result = true;
@@ -161,6 +168,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
                 areaRef={areaRef}
                 scrollSync={scrollSync}
                 deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
+                maxCursorTime={maxCursorTime}
               />
             )}
           </>

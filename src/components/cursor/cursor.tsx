@@ -37,6 +37,7 @@ export const Cursor: FC<CursorProps> = ({
   onCursorDragStart,
   onCursorDrag,
   onCursorDragEnd,
+  maxCursorTime,
 }) => {
   const rowRnd = useRef<RowRndApi>();
   const draggingLeft = useRef<undefined | number>();
@@ -88,10 +89,19 @@ export const Cursor: FC<CursorProps> = ({
             draggingLeft.current = startLeft - scrollLeft - scroll;
           }
         }
+
+        const leftIndent = draggingLeft.current + scrollLeft;
+
+        if (parserTimeToPixel(maxCursorTime, { startLeft, scale, scaleWidth }) <= leftIndent) {
+          draggingLeft.current = parserTimeToPixel(maxCursorTime, { startLeft, scale, scaleWidth }) - scrollLeft;
+        }
+
         rowRnd.current.updateLeft(draggingLeft.current);
-        const time = parserPixelToTime(draggingLeft.current + scrollLeft, { startLeft, scale, scaleWidth });
-        setCursor({ time });
-        onCursorDrag && onCursorDrag(time);
+
+        const time = parserPixelToTime(leftIndent, { startLeft, scale, scaleWidth });
+        const nextTime = Math.min(time, maxCursorTime);
+        setCursor({ time: nextTime });
+        onCursorDrag && onCursorDrag(nextTime);
         return false;
       }}
     >

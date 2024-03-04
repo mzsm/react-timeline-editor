@@ -1,4 +1,4 @@
-import { parserPixelToTime } from '@/utils/deal_data';
+import { parserPixelToTime, parserTimeToPixel } from '@/utils/deal_data';
 import React, { FC, useEffect, useRef } from 'react';
 import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtualized';
 import { CommonProp } from '@/interface/common_prop';
@@ -16,7 +16,7 @@ export type TimeAreaProps = CommonProp & {
 };
 
 /** 动画时间轴组件 */
-export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scaleWidth, scaleCount, scaleSplitCount, startLeft, scrollLeft, onClickTimeArea, getScaleRender }) => {
+export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scaleWidth, scaleCount, scaleSplitCount, startLeft, scrollLeft, onClickTimeArea, getScaleRender, maxCursorTime }) => {
   const gridRef = useRef<Grid>();
   /** 是否显示细分刻度 */
   const showUnit = scaleSplitCount > 0;
@@ -27,9 +27,21 @@ export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scal
     const classNames = ['time-unit'];
     if (isShowScale) classNames.push('time-unit-big');
     const item = (showUnit ? columnIndex / scaleSplitCount : columnIndex) * scale;
+
+    if (item > maxCursorTime) {
+      classNames.push('after-max-cursor-time');
+    }
+
+    const unitScaleClassNames = ['time-unit-scale'];
+    const unitStyle: any = {};
+    if (item > maxCursorTime) {
+      unitScaleClassNames.push('after-max-cursor-time-unit');
+      unitStyle.width = Math.min(parserTimeToPixel(item-maxCursorTime, {startLeft: 0, scaleWidth, scale}), scaleWidth);
+    }
+
     return (
       <div key={key} style={style} className={prefix(...classNames)}>
-        {isShowScale && <div className={prefix('time-unit-scale')}>{getScaleRender ? getScaleRender(item) : item}</div>}
+        {isShowScale && <div className={prefix(...unitScaleClassNames)} style={unitStyle}>{getScaleRender ? getScaleRender(item) : item}</div>}
       </div>
     );
   };

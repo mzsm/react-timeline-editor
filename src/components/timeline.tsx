@@ -138,6 +138,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
               scaleCount={scaleCount}
               onScroll={onScroll}
               scrollLeft={scrollLeft}
+              maxCursorTime={maxCursorTime}
             />
             <EditArea
               getActionRender={getActionRender}

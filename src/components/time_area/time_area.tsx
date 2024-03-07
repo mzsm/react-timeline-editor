@@ -28,6 +28,7 @@ export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scal
     if (isShowScale) classNames.push('time-unit-big');
     const item = (showUnit ? columnIndex / scaleSplitCount : columnIndex) * scale;
 
+    console.log('Test: item > maxCursorTime: ', item > maxCursorTime);
     if (item > maxCursorTime) {
       classNames.push('after-max-cursor-time');
     }
@@ -37,6 +38,7 @@ export const TimeArea: FC<TimeAreaProps> = ({ setCursor, hideCursor, scale, scal
     if (item > maxCursorTime) {
       unitScaleClassNames.push('after-max-cursor-time-unit');
       unitStyle.width = Math.min(parserTimeToPixel(item-maxCursorTime, {startLeft: 0, scaleWidth, scale}), scaleWidth);
+      console.log('Test: unitStyle.width: ', unitStyle.width);
     }
 
     return (

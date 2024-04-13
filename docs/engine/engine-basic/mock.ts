@@ -1,4 +1,4 @@
-import { TimelineAction, TimelineEffect, TimelineRow } from '@xzdarcy/react-timeline-editor';
+import { TimelineAction, TimelineEffect, TimelineRow } from '@itershukov/react-timeline-editor';
 import audioControl from './audioControl';
 import lottieControl from './lottieControl';
 
@@ -72,7 +72,7 @@ export const mockData: CusTomTimelineRow[] = [
         id: 'action0',
         start: 9.5,
         end: 16,
-        effectId: 'effect1',
+
         data: {
           src: '/lottie/lottie1/data.json',
           name: '点赞',
@@ -87,7 +87,7 @@ export const mockData: CusTomTimelineRow[] = [
         id: 'action1',
         start: 5,
         end: 9.5,
-        effectId: 'effect1',
+
         data: {
           src: '/lottie/lottie2/data.json',
           name: '工作',
@@ -102,7 +102,6 @@ export const mockData: CusTomTimelineRow[] = [
         id: 'action2',
         start: 0,
         end: 5,
-        effectId: 'effect1',
         data: {
           src: '/lottie/lottie3/data.json',
           name: '奶牛',
@@ -117,7 +116,6 @@ export const mockData: CusTomTimelineRow[] = [
         id: 'action3',
         start: 0,
         end: 20,
-        effectId: 'effect0',
         data: {
           src: '/audio/bg.mp3',
           name: '背景音乐',

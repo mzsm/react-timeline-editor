@@ -8,25 +8,22 @@ export const InteractComp: FC<{
   interactRef?: React.MutableRefObject<Interactable>;
   draggable: boolean;
   draggableOptions: DraggableOptions;
-  resizable: boolean;
-  resizableOptions: ResizableOptions;
-}> = ({ children, interactRef, draggable, resizable, draggableOptions, resizableOptions }) => {
+  children: ReactElement
+}> = ({ children, interactRef, draggable, draggableOptions }) => {
   const nodeRef = useRef<HTMLElement>();
   const interactable = useRef<Interactable>();
   const draggableOptionsRef = useRef<DraggableOptions>();
-  const resizableOptionsRef = useRef<ResizableOptions>();
 
   useEffect(() => {
     draggableOptionsRef.current = { ...draggableOptions };
-    resizableOptionsRef.current = { ...resizableOptions };
-  }, [draggableOptions, resizableOptions]);
+  }, [draggableOptions]);
 
   useEffect(() => {
     interactable.current && interactable.current.unset();
     interactable.current = interact(nodeRef.current);
     interactRef.current = interactable.current;
     setInteractions();
-  }, [draggable, resizable]);
+  }, [draggable]);
 
   const setInteractions = () => {
     if (draggable)
@@ -36,12 +33,6 @@ export const InteractComp: FC<{
         onmove: (e) => draggableOptionsRef.current.onmove && (draggableOptionsRef.current.onmove as (e: DragEvent) => any)(e),
         onend: (e) => draggableOptionsRef.current.onend && (draggableOptionsRef.current.onend as (e: DragEvent) => any)(e),
       });
-    if (resizable) interactable.current.resizable({ 
-      ...resizableOptionsRef.current,
-      onstart: (e) => resizableOptionsRef.current.onstart && (resizableOptionsRef.current.onstart as (e: DragEvent) => any)(e),
-      onmove: (e) => resizableOptionsRef.current.onmove && (resizableOptionsRef.current.onmove as (e: DragEvent) => any)(e),
-      onend: (e) => resizableOptionsRef.current.onend && (resizableOptionsRef.current.onend as (e: DragEvent) => any)(e),
-    });
   };
 
   return cloneElement(children as ReactElement, {

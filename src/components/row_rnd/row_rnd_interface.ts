@@ -1,5 +1,3 @@
-import { DragEvent, ResizeEvent } from "@interactjs/types/index";
-
 type EventData = {
   lastLeft: number;
   left: number;
@@ -40,19 +38,15 @@ export interface RowRndProps {
   bounds?: { left: number; right: number };
   edges?: {left: boolean | string, right: boolean | string};
 
-  onResizeStart?: RndResizeStartCallback;
-  onResize?: RndResizeCallback;
-  onResizeEnd?: RndResizeEndCallback;
   onDragStart?: RndDragStartCallback;
   onDrag?: RndDragCallback;
   onDragEnd?: RndDragEndCallback;
   // 同时传入parentRef和deltaScrollLeft时会启动自动滚动
   parentRef?: React.MutableRefObject<HTMLDivElement>;
   deltaScrollLeft?: (delta: number) => void;
-  
+
   children?: React.ReactNode;
 
-  enableResizing?: boolean;
   enableDragging?: boolean;
   adsorptionPositions?: number[];
   adsorptionDistance?: number;

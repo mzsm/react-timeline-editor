@@ -1,5 +1,5 @@
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
-import { TimelineEngine } from '@xzdarcy/react-timeline-editor';
+import { TimelineEngine } from '@itershukov/react-timeline-editor';
 import { Slider } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
@@ -16,13 +16,11 @@ const TimelineEditor = () => {
   useEffect(() => {
     const engine = new TimelineEngine();
     timelineEngine.current = engine;
-    timelineEngine.current.effects = mockEffect;
-    timelineEngine.current.data = mockData;
     timelineEngine.current.on('play', () => setIsPlaying(true));
     timelineEngine.current.on('paused', () => setIsPlaying(false));
     timelineEngine.current.on('afterSetTime', ({ time }) => setTime(time));
     timelineEngine.current.on('setTimeByTick', ({ time }) => setTime(time));
-    
+
     let dur = 0;
     mockData.forEach(row => {
       row.actions.forEach(action => dur = Math.max(dur, action.end));
@@ -31,7 +29,6 @@ const TimelineEditor = () => {
 
     return () => {
       if (!timelineEngine.current) return;
-      timelineEngine.current.pause();
       timelineEngine.current.offAll();
       lottieControl.destroy();
     };
@@ -39,17 +36,10 @@ const TimelineEditor = () => {
 
   // 开始或暂停
   const handlePlayOrPause = () => {
-    if (!timelineEngine.current) return;
-    if (timelineEngine.current.isPlaying) {
-      timelineEngine.current.pause();
-    } else {
-      timelineEngine.current.play({ autoEnd: true });
-    }
   };
 
   const handleSetTime = (value: number) => {
     timelineEngine.current.setTime(Number(value));
-    timelineEngine.current.reRender();
   }
 
   // 时间展示

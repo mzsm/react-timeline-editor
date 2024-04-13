@@ -5,8 +5,13 @@
     flex: 0 0 auto;
     .ReactVirtualized__Grid {
       outline: none;
+      background-color: #E3E6EB;
       &::-webkit-scrollbar {
         display: none;
+      }
+
+      .ReactVirtualized__Grid__innerScrollContainer {
+        background-color: #f5f5f5;
       }
     }
 
@@ -37,5 +42,18 @@
     right: 0;
     top: 0;
     transform: translate(50%, -100%);
+    z-index: 2;
+  }
+
+  &-after-max-cursor-time {
+    height: 32px !important;
+    border:none;
+    z-index: 1;
+  }
+
+  &-after-max-cursor-time-unit {
+    background: #E3E6EB;
+    height: 32px;
+    transform: none;
   }
 }

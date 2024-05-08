@@ -1,7 +1,7 @@
 {
   "name": "@xzdarcy/react-timeline-editor",
   "version": "0.1.9",
-  "author": "xzdarcy",
+  "author": "xzdarcy, mzsm",
   "license": "MIT",
   "keywords": [
     "timeline",
@@ -10,6 +10,7 @@
     "react",
     "typescript"
   ],
+  "private": true,
   "bugs": {
     "url": "https://github.com/xzdarcy/react-timeline-editor/issues"
   },

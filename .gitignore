@@ -9,7 +9,7 @@
 /index.zip
 
 # production
-/dist
+#/dist
 /docs-dist
 
 # misc

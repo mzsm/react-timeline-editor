@@ -46,28 +46,28 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** requestAnimationFrame timerId */
-  private _timerId: number;
+  protected _timerId: number;
 
   /** 播放速率 */
-  private _playRate = 1;
+  protected _playRate = 1;
   /** 当前时间 */
-  private _currentTime: number = 0;
+  protected _currentTime: number = 0;
   /** 播放状态 */
-  private _playState: PlayState = 'paused';
+  protected _playState: PlayState = 'paused';
   /** 时间帧pre数据 */
-  private _prev: number;
+  protected _prev: number;
 
   /** 动作效果map */
-  private _effectMap: Record<string, TimelineEffect> = {};
+  protected _effectMap: Record<string, TimelineEffect> = {};
   /** 需要运行的动作map */
-  private _actionMap: Record<string, TimelineAction> = {};
+  protected _actionMap: Record<string, TimelineAction> = {};
   /** 按动作开始时间正序排列后的动作id数组 */
-  private _actionSortIds: string[] = [];
+  protected _actionSortIds: string[] = [];
 
   /** 当前遍历到的action index */
-  private _next: number = 0;
+  protected _next: number = 0;
   /** 动作时间范围包含当前时间的actionId列表 */
-  private _activeActionIds: string[] = [];
+  protected _activeActionIds: string[] = [];
 
   /** 是否正在播放 */
   get isPlaying() {
@@ -200,12 +200,12 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 播放完成 */
-  private _end() {
+  protected _end() {
     this.pause();
     this.trigger('ended', { engine: this });
   }
 
-  private _startOrStop(type?: 'start' | 'stop') {
+  protected _startOrStop(type?: 'start' | 'stop') {
     for (let i = 0; i < this._activeActionIds.length; i++) {
       const actionId = this._activeActionIds[i];
       const action = this._actionMap[actionId];
@@ -220,7 +220,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 每帧执行 */
-  private _tick(data: { now: number; autoEnd?: boolean; to?: number }) {
+  protected _tick(data: { now: number; autoEnd?: boolean; to?: number }) {
     if (this.isPaused) return;
     const { now, autoEnd, to } = data;
 
@@ -252,7 +252,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** tick运行actions */
-  private _tickAction(time: number) {
+  protected _tickAction(time: number) {
     this._dealEnter(time);
     this._dealLeave(time);
 
@@ -269,7 +269,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 重置active数据 */
-  private _dealClear() {
+  protected _dealClear() {
     while (this._activeActionIds.length) {
       const actionId = this._activeActionIds.shift();
       const action = this._actionMap[actionId];
@@ -283,7 +283,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 处理action time enter */
-  private _dealEnter(time: number) {
+  protected _dealEnter(time: number) {
     // add to active
     while (this._actionSortIds[this._next]) {
       const actionId = this._actionSortIds[this._next];
@@ -308,7 +308,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 处理action time leave */
-  private _dealLeave(time: number) {
+  protected _dealLeave(time: number) {
     let i = 0;
     while (this._activeActionIds[i]) {
       const actionId = this._activeActionIds[i];
@@ -330,7 +330,7 @@ export class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngi
   }
 
   /** 处理数据 */
-  private _dealData(data: TimelineRow[]) {
+  protected _dealData(data: TimelineRow[]) {
     const actions: TimelineAction[] = [];
     data.map((row) => {
       actions.push(...row.actions);

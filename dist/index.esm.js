@@ -2460,7 +2460,7 @@ var EditArea = /*#__PURE__*/React.forwardRef(function (props, ref) {
   }, dragLineData)));
 });
 
-var css_248z$5 = ".timeline-editor {\n  height: 600px;\n  width: 600px;\n  min-height: 32px;\n  position: relative;\n  font-size: 12px;\n  font-family: \"PingFang SC\";\n  background-color: #191b1d;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n}\n";
+var css_248z$5 = ".timeline-editor {\n  height: 600px;\n  width: 600px;\n  min-height: 32px;\n  position: relative;\n  font-size: 12px;\n  background-color: #191b1d;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n}\n";
 styleInject(css_248z$5);
 
 var css_248z$6 = ".timeline-editor-time-area {\n  position: relative;\n  height: 32px;\n  flex: 0 0 auto;\n}\n.timeline-editor-time-area .ReactVirtualized__Grid {\n  outline: none;\n}\n.timeline-editor-time-area .ReactVirtualized__Grid::-webkit-scrollbar {\n  display: none;\n}\n.timeline-editor-time-area-interact {\n  position: absolute;\n  cursor: pointer;\n  left: 0;\n  top: 0;\n}\n.timeline-editor-time-unit {\n  border-right: 1px solid rgba(255, 255, 255, 0.2);\n  position: relative;\n  box-sizing: content-box;\n  height: 4px !important;\n  bottom: 0 !important;\n  top: auto !important;\n}\n.timeline-editor-time-unit-big {\n  height: 8px !important;\n}\n.timeline-editor-time-unit-scale {\n  color: rgba(255, 255, 255, 0.6);\n  position: absolute;\n  right: 0;\n  top: 0;\n  transform: translate(50%, -100%);\n}\n";

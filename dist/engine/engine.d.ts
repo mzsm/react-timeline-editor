@@ -1,7 +1,8 @@
-import { TimelineRow } from '../interface/action';
+import { TimelineAction, TimelineRow } from '../interface/action';
 import { TimelineEffect } from '../interface/effect';
 import { Emitter } from './emitter';
 import { EventTypes } from './events';
+type PlayState = 'playing' | 'paused';
 export interface ITimelineEngine extends Emitter<EventTypes> {
     readonly isPlaying: boolean;
     readonly isPaused: boolean;
@@ -37,25 +38,25 @@ export interface ITimelineEngine extends Emitter<EventTypes> {
 export declare class TimelineEngine extends Emitter<EventTypes> implements ITimelineEngine {
     constructor();
     /** requestAnimationFrame timerId */
-    private _timerId;
+    protected _timerId: number;
     /** 播放速率 */
-    private _playRate;
+    protected _playRate: number;
     /** 当前时间 */
-    private _currentTime;
+    protected _currentTime: number;
     /** 播放状态 */
-    private _playState;
+    protected _playState: PlayState;
     /** 时间帧pre数据 */
-    private _prev;
+    protected _prev: number;
     /** 动作效果map */
-    private _effectMap;
+    protected _effectMap: Record<string, TimelineEffect>;
     /** 需要运行的动作map */
-    private _actionMap;
+    protected _actionMap: Record<string, TimelineAction>;
     /** 按动作开始时间正序排列后的动作id数组 */
-    private _actionSortIds;
+    protected _actionSortIds: string[];
     /** 当前遍历到的action index */
-    private _next;
+    protected _next: number;
     /** 动作时间范围包含当前时间的actionId列表 */
-    private _activeActionIds;
+    protected _activeActionIds: string[];
     /** 是否正在播放 */
     get isPlaying(): boolean;
     /** 是否暂停中 */
@@ -108,18 +109,23 @@ export declare class TimelineEngine extends Emitter<EventTypes> implements ITime
      */
     pause(): void;
     /** 播放完成 */
-    private _end;
-    private _startOrStop;
+    protected _end(): void;
+    protected _startOrStop(type?: 'start' | 'stop'): void;
     /** 每帧执行 */
-    private _tick;
+    protected _tick(data: {
+        now: number;
+        autoEnd?: boolean;
+        to?: number;
+    }): void;
     /** tick运行actions */
-    private _tickAction;
+    protected _tickAction(time: number): void;
     /** 重置active数据 */
-    private _dealClear;
+    protected _dealClear(): void;
     /** 处理action time enter */
-    private _dealEnter;
+    protected _dealEnter(time: number): void;
     /** 处理action time leave */
-    private _dealLeave;
+    protected _dealLeave(time: number): void;
     /** 处理数据 */
-    private _dealData;
+    protected _dealData(data: TimelineRow[]): void;
 }
+export {};
